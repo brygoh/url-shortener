@@ -9,8 +9,6 @@ export default function Home() {
   const [shorten, setShorten] = useState();
   const [url, setUrl] = useState('');
 
-  useEffect(() => console.log(window), [])
-
   const regexCheck = (value) => {
     const expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
     if (value.match(expression)) return true
@@ -18,15 +16,13 @@ export default function Home() {
   }
 
   const publishURL = (value) => {
-    const localURL = 'http://localhost:5000/url/'
-    const devURL = ''
+    const URL = location.hostname === "localhost" || location.hostname === "127.0.0.1" ? 'http://localhost:5000/url/': 'https://ghxb.herokuapp.com/url/'
     if (regexCheck(value)) {
       setShorten()
       setError()
-      axios.post(localURL + 'publish', {actualURL: value})
+      axios.post(URL + 'publish', {actualURL: value})
       .then(res => {
-        setShorten(res.data.shortURL)
-        console.log('here')
+        setShorten(URL + res.data.shortId)
       })
       .catch(err => console.log(err))
     } else {
