@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Button, TextField, Alert, AlertTitle } from '@mui/material';
 import { Link } from '@mui/icons-material';
 import { Container } from '@mui/system';
@@ -9,6 +9,8 @@ export default function Home() {
   const [shorten, setShorten] = useState();
   const [url, setUrl] = useState('');
 
+  useEffect(() => console.log(window), [])
+
   const regexCheck = (value) => {
     const expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
     if (value.match(expression)) return true
@@ -16,10 +18,12 @@ export default function Home() {
   }
 
   const publishURL = (value) => {
+    const localURL = 'http://localhost:5000/url/'
+    const devURL = ''
     if (regexCheck(value)) {
       setShorten()
       setError()
-      axios.post('http://localhost:5000/url/publish', {actualURL: value})
+      axios.post(localURL + 'publish', {actualURL: value})
       .then(res => {
         setShorten(res.data.shortURL)
         console.log('here')
