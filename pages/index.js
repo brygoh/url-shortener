@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AppBar, Button, TextField, Alert, AlertTitle } from '@mui/material';
-import { Link } from '@mui/icons-material';
+import { Link, CopyAll } from '@mui/icons-material';
 import { Container } from '@mui/system';
 import axios from 'axios';
 
@@ -69,7 +69,11 @@ export default function Home() {
           <strong>
             <a href={shorten} target="_blank" rel="noopener noreferrer">click here </a>
           </strong>
-          for shortened link
+          for shortened link or 
+          <CopyAll onClick={() => {
+            navigator.clipboard.writeText(shorten); 
+            alert('URL has been copied')
+          }}/>
         </Alert> : null}
       </Container>
     </>
