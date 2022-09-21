@@ -16,7 +16,7 @@ export default function Home() {
   }
 
   const publishURL = (value) => {
-    const URL = location.hostname === "localhost" || location.hostname === "127.0.0.1" ? 'http://localhost:5000/url/': 'https://ghxb.herokuapp.com/url/'
+    const URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" ? 'http://localhost:5000/url/': 'https://ghxb.herokuapp.com/url/'
     if (regexCheck(value)) {
       setShorten()
       setError()
